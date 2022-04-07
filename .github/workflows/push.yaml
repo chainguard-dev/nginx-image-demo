@@ -1,6 +1,8 @@
 name: e2e test setup-melange
 
-on: push
+on: 
+  push
+  pull_request
 
 jobs:
   build:
