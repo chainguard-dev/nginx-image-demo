@@ -1,10 +1,10 @@
-name: e2e test setup-melange
+name: Build action
 
 on: push
 
 jobs:
   build:
-    name: Build melange package
+    name: Build nginx image
     runs-on: ubuntu-latest
 
     # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
@@ -19,7 +19,7 @@ jobs:
       - uses: chainguard-dev/actions/melange-build@main
         with:
           sign-with-temporary-key: true
-      - uses: chainguard-dev/actions/apko-build@feature/apko-build-keyring-append
+      - uses: chainguard-dev/actions/apko-build@main
         id: apko
         with:
           tag: ghcr.io/${{ github.repository }}:latest
