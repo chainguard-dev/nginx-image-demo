@@ -1,0 +1,38 @@
+name: e2e test setup-melange
+
+on: push
+
+jobs:
+  build:
+    name: Build melange package
+    runs-on: ubuntu-latest
+
+    # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
+    permissions:
+      id-token: write
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@main
+      - uses: sigstore/cosign-installer@main
+      - uses: chainguard-dev/actions/melange-build@main
+        with:
+          sign-with-temporary-key: true
+      - uses: chainguard-dev/actions/apko-build@feature/apko-build-keyring-append
+        id: apko
+        with:
+          tag: ghcr.io/${{ github.repository }}:latest
+          keyring-append: /github/workspace/melange.rsa.pub
+          archs: x86_64
+
+      - uses: docker/login-action@bb984efc561711aaa26e433c32c3521176eae55b # v1.13.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ github.token }}
+
+      - shell: bash
+        run: |
+          # TODO: Add attributes based on things like the commit.
+          COSIGN_EXPERIMENTAL=true cosign sign ${{ steps.apko.outputs.digest }}
