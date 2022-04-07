@@ -95,5 +95,5 @@ pipeline:
   - uses: autoconf/make
   - uses: autoconf/make-install
   - name: 'Create tmp dir'
-    runs: mkdir /var/lib/${{package.name}}/tmp
+    runs: mkdir ${{targets.destdir}}/var/lib/${{package.name}}/tmp
   - uses: strip
