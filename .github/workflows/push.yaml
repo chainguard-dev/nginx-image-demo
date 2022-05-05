@@ -14,17 +14,26 @@ jobs:
       contents: read
 
     steps:
+      - name: Generate snapshot date
+        id: snapshot-date
+        run: |
+          echo ::set-output name=date::$(date -u +%Y%m%d)
+          echo ::set-output name=epoch::$(date -u +%s)
+        shell: bash
+
       - uses: actions/checkout@main
       - uses: sigstore/cosign-installer@main
       - uses: chainguard-dev/actions/melange-build@main
         with:
           sign-with-temporary-key: true
+
       - uses: chainguard-dev/actions/apko-build@main
         id: apko
         with:
           tag: ghcr.io/${{ github.repository }}:latest
           keyring-append: /github/workspace/melange.rsa.pub
           archs: x86_64
+          source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
 
       - uses: docker/login-action@bb984efc561711aaa26e433c32c3521176eae55b # v1.13.0
         with:
