@@ -1,6 +1,9 @@
 name: Build action
 
-on: push
+on: 
+  push:
+  schedule:
+    - cron: '15 3 * * *'  # every day at 03:15 (just wanted to avoid midnight)
 
 jobs:
   build:
