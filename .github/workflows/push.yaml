@@ -29,6 +29,7 @@ jobs:
       - uses: chainguard-dev/actions/melange-build@main
         with:
           sign-with-temporary-key: true
+          empty-workspace: true
 
       - uses: chainguard-dev/actions/apko-build@main
         id: apko
