@@ -34,14 +34,14 @@ jobs:
       - uses: chainguard-dev/actions/apko-build@main
         id: apko
         with:
-          tag: ghcr.io/${{ github.repository }}:latest
+          tag: cgr.dev/${{ github.repository }}:latest
           keyring-append: /github/workspace/melange.rsa.pub
           archs: x86_64
           source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
 
       - uses: docker/login-action@bb984efc561711aaa26e433c32c3521176eae55b # v1.13.0
         with:
-          registry: ghcr.io
+          registry: cgr.dev
           username: ${{ github.repository_owner }}
           password: ${{ github.token }}
 
