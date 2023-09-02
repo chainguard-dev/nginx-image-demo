@@ -31,7 +31,7 @@ jobs:
           sign-with-temporary-key: true
           empty-workspace: true
 
-      - uses: chainguard-dev/actions/apko-build@main
+      - uses: distroless/actions/apko-publish@main
         id: apko
         with:
           archs: x86_64
