@@ -35,7 +35,7 @@ jobs:
         id: apko
         with:
           archs: x86_64
-          #keyring-append: /github/workspace/melange.rsa.pub
+          keyring-append: /github/workspace/melange.rsa.pub
           tag: cgr.dev/${{ github.repository }}:latest
       
       #- uses: chainguard-dev/actions/apko-build@main
