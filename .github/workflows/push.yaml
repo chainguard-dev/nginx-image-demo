@@ -38,14 +38,6 @@ jobs:
           keyring-append: /github/workspace/melange.rsa.pub
           tag: cgr.dev/${{ github.repository }}:latest
           source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
-      
-      #- uses: chainguard-dev/actions/apko-build@main
-      #  id: apko
-      #  with:
-      #    tag: cgr.dev/${{ github.repository }}:latest
-      #    keyring-append: /github/workspace/melange.rsa.pub
-      #    archs: x86_64
-      #    source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
 
       - uses: docker/login-action@bb984efc561711aaa26e433c32c3521176eae55b # v1.13.0
         with:
